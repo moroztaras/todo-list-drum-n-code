@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Api\ForbiddenJsonHttpException;
 use App\Manager\TaskManager;
+use App\Response\SuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -63,4 +64,19 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->editTask($content, $task)], Response::HTTP_OK, [], ['edit' => true]);
     }
 
+    #[Route(path: '/{id}', name: 'api_task_delete', methods: 'DELETE')]
+    public function delete(Request $request, Task $task): JsonResponse
+    {
+        $user = $this->getCurrentUser($request);
+
+        if (($user->getId() !== $task->getUser()->getId()) || ($task->getStatus() === Task::TASK_STATUS_TODO))
+        {
+            throw new ForbiddenJsonHttpException('403', 'Forbidden delete this task.');
+        }
+
+        $this->taskManager->removeTask($task);
+
+        return new SuccessResponse('Task was deleted');
+
+    }
 }

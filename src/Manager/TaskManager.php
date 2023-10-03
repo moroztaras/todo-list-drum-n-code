@@ -48,7 +48,7 @@ class TaskManager
     public function editTask(string $content, Task $task): Task
     {
         $validationGroups = ['edit'];
-        
+
         $this->apiObjectValidator->deserializeAndValidate($content, Task::class, [
             AbstractNormalizer::OBJECT_TO_POPULATE => $task,
             AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
@@ -64,6 +64,13 @@ class TaskManager
     private function saveTask(Task $task): void
     {
         $this->doctrine->getManager()->persist($task);
+        $this->doctrine->getManager()->flush();
+    }
+
+    // Remove task from DB
+    public function removeTask(Task $task)
+    {
+        $this->doctrine->getManager()->remove($task);
         $this->doctrine->getManager()->flush();
     }
 }
