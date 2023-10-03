@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\Task;
 use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
+use App\Exception\Api\ForbiddenJsonHttpException;
 use App\Manager\TaskManager;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,6 +50,11 @@ class TaskController extends ApiController
     public function edit(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
+
+        if ($user->getId() !== $task->getUser()->getId())
+        {
+            throw new ForbiddenJsonHttpException('403', 'Forbidden edit this task.');
+        }
 
         if (!($content = $request->getContent())) {
             throw new BadRequestJsonHttpException('Bad Request.');
