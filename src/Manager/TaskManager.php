@@ -45,6 +45,21 @@ class TaskManager
         return $task;
     }
 
+    public function editTask(string $content, Task $task): Task
+    {
+        $validationGroups = ['edit'];
+        
+        $this->apiObjectValidator->deserializeAndValidate($content, Task::class, [
+            AbstractNormalizer::OBJECT_TO_POPULATE => $task,
+            AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE => true,
+            UnwrappingDenormalizer::UNWRAP_PATH => '[task]',
+        ], $validationGroups);
+
+        $this->saveTask($task);
+
+        return $task;
+    }
+
     // Save task in DB
     private function saveTask(Task $task): void
     {

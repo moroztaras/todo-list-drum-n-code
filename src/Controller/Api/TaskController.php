@@ -2,6 +2,7 @@
 
 namespace App\Controller\Api;
 
+use App\Entity\Task;
 use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Manager\TaskManager;
@@ -43,4 +44,17 @@ class TaskController extends ApiController
 
         return $this->json(['task' => $this->taskManager->createNewTask($user, $content)], Response::HTTP_OK, [], ['create' => true]);
     }
+
+    #[Route(path: '/{id}', name: 'api_task_edit', methods: 'PUT')]
+    public function edit(Request $request, Task $task): JsonResponse
+    {
+        $user = $this->getCurrentUser($request);
+
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+
+        return $this->json(['task' => $this->taskManager->editTask($content, $task)], Response::HTTP_OK, [], ['edit' => true]);
+    }
+
 }
