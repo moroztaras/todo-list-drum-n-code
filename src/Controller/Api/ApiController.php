@@ -15,6 +15,9 @@ abstract class ApiController extends AbstractController
 {
     protected ManagerRegistry $doctrine;
 
+    /**
+     * @required
+     */
     public function setDoctrine(ManagerRegistry $doctrine)
     {
         $this->doctrine = $doctrine;
