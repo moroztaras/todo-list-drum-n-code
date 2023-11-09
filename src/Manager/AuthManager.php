@@ -4,14 +4,14 @@ namespace App\Manager;
 
 use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
-use App\Exception\UserAlreadyExistsException;
+use App\Exception\Api\UserAlreadyExistsException;
 use App\Model\LoginModel;
 use App\Repository\UserRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
+use Ramsey\Uuid\Nonstandard\Uuid;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Serializer\Normalizer\UnwrappingDenormalizer;
-use Ramsey\Uuid\Nonstandard\Uuid;
 
 class AuthManager
 {
