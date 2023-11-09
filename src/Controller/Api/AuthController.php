@@ -29,6 +29,10 @@ class AuthController extends ApiController
     #[Route('/sing-in', name: 'api_auth_sing_in', methods: 'POST')]
     public function signIn(Request $request):JsonResponse
     {
-        return new JsonResponse();
+        if (!($content = $request->getContent())) {
+            throw new BadRequestJsonHttpException('Bad Request.');
+        }
+
+        return $this->json(['user' => $this->authManager->userAuthentication($content)], Response::HTTP_OK, [], ['sing-in' => true]);
     }
 }

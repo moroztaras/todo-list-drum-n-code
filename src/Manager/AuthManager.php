@@ -3,7 +3,9 @@
 namespace App\Manager;
 
 use App\Entity\User;
+use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\UserAlreadyExistsException;
+use App\Model\LoginModel;
 use App\Repository\UserRepository;
 use App\Validator\Helper\ApiObjectValidator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -34,6 +36,26 @@ class AuthManager
         }
 
         $this->save($user, $user->getPlainPassword());
+
+        return $user;
+    }
+
+    public function userAuthentication(string $content): User
+    {
+        /** @var LoginModel $login */
+        $login = $this->apiObjectValidator->deserializeAndValidate($content, LoginModel::class, [
+            UnwrappingDenormalizer::UNWRAP_PATH => '[sing-in]',
+        ]);
+        $user = $this->userRepository->findOneByEmail($login->getEmail());
+
+        if (!$user) {
+            throw new BadRequestJsonHttpException('Authentication error');
+        }
+
+        if ($this->passwordEncoder->isPasswordValid($user, $login->getPlainPassword())) {
+            $user->setApiKey(Uuid::uuid4());
+            $this->save($user, null);
+        }
 
         return $user;
     }
