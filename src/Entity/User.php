@@ -249,7 +249,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    public function removeTwitter(Task $task): self
+    public function removeTask(Task $task): self
     {
         if ($this->tasks->contains($task)) {
             $this->tasks->removeElement($task);
