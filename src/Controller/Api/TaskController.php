@@ -21,7 +21,6 @@ class TaskController extends ApiController
     ) {
     }
 
-    // List tasks sort by field of user
     #[Route('', name: 'api_task_list', methods: 'GET')]
     public function list(Request $request): JsonResponse
     {
@@ -34,7 +33,6 @@ class TaskController extends ApiController
         ], Response::HTTP_OK);
     }
 
-    // Create new task
     #[Route('', name: 'api_task_create', methods: 'POST')]
     public function create(Request $request): JsonResponse
     {
@@ -77,6 +75,5 @@ class TaskController extends ApiController
         $this->taskManager->removeTask($task);
 
         return new SuccessResponse('Task was deleted');
-
     }
 }

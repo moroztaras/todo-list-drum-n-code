@@ -60,14 +60,12 @@ class TaskManager
         return $task;
     }
 
-    // Save task in DB
     private function saveTask(Task $task): void
     {
         $this->doctrine->getManager()->persist($task);
         $this->doctrine->getManager()->flush();
     }
 
-    // Remove task from DB
     public function removeTask(Task $task)
     {
         $this->doctrine->getManager()->remove($task);
