@@ -1,0 +1,208 @@
+{
+	"info": {
+		"_postman_id": "4e27d5c9-390b-4942-a142-d59905e42d9e",
+		"name": "Drum-N-Code",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4867612"
+	},
+	"item": [
+		{
+			"name": "Task",
+			"item": [
+				{
+					"name": "api tasks list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "abcdaaaa-1234-5678-dddd-000000000001",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/task?sort_by=title",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task"
+							],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "title"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api task new",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "abcdaaaa-1234-5678-dddd-000000000001",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"task\": {\n        \"title\": \"New title task\",\n        \"priority\":5,\n        \"description\": \"Description new task\",\n        \"completedAt\": \"2023-10-10T15:42:37+00:00\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/task",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api task edit",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "abcdaaaa-1234-5678-dddd-000000000001",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"task\": {\n        \"title\": \"Edit title task15\",\n        \"priority\":5,\n        \"status\": \"done\",\n        \"description\": \"Edit description task\",\n        \"completedAt\": \"2023-10-11T15:42:37+00:00\"\n    }\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/task/1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api task delete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-api-key",
+								"value": "abcdaaaa-1234-5678-dddd-000000000001",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/task/2",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"task",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "api auth sing-up",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user\": {  \n    \"email\": \"user@drum-n-code.com\",\n    \"plain_password\": \"qwerty\",\n    \"first_name\": \"Taras\",\n    \"last_name\": \"Moroz\",\n    \"birthday\": \"1986-07-15\",\n    \"gender\": \"male\",\n    \"country\": \"Ukraine\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/sing-up",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"sing-up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "api auth sing-in",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"sing-in\": {\n    \"email\": \"user@drum-n-code.com\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/api/auth/sing-in",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"sing-in"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
