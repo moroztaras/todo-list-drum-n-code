@@ -4,33 +4,34 @@ namespace App\Entity;
 
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeImmutable;
 
 trait DateTimeEntity
 {
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $createdAt;
+    private DateTimeImmutable $createdAt;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $updatedAt;
+    private DateTimeImmutable $updatedAt;
 
-    public function getCreatedAt(): \DateTime
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTime $createdAt): self
+    public function setCreatedAt(DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): \DateTime
+    public function getUpdatedAt(): DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTime $updatedAt): self
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
@@ -41,12 +42,12 @@ trait DateTimeEntity
     #[ORM\PrePersist]
     public function setUpdatedValue(): void
     {
-        $this->updatedAt = new \DateTime();
+        $this->updatedAt = new DateTimeImmutable();
     }
 
     public function setDateTime(): void
     {
-        $this->updatedAt = new \DateTime();
-        $this->createdAt = new \DateTime();
+        $this->updatedAt = new DateTimeImmutable();
+        $this->createdAt = new DateTimeImmutable();
     }
 }
