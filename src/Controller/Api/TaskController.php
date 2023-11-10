@@ -26,10 +26,10 @@ class TaskController extends ApiController
     {
         /** @var User $user */
         $user = $this->getCurrentUser($request);
-        $sortBy = $request->query->get('sort_by', 'createdAt');
+        $orderBy = $request->query->get('order_by', 'createdAt');
 
         return $this->json([
-            'tasks' => $this->taskManager->getTasksOfUser($user->getId(), (string) $sortBy),
+            'tasks' => $this->taskManager->getTasksOfUser($user, $orderBy),
         ], Response::HTTP_OK);
     }
 

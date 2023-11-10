@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Task;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -23,13 +24,13 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    public function getTasksOfUserAndSortByField(int $userId, string $sortBy)
+    public function getTasksOfUserAndOrderByField(User $user, string $orderBy)
     {
         return $this->createQueryBuilder('t')
             ->leftJoin('t.user', 'user')
-            ->where('user.id = :userId')
-            ->setParameter('userId', $userId)
-            ->orderBy('t.'.$sortBy, Criteria::DESC)
+            ->where('user.uuid = :uuid')
+            ->setParameter('uuid', $user->getUuid())
+            ->orderBy('t.'.$orderBy, Criteria::ASC)
             ->getQuery()
             ->getResult()
         ;

@@ -21,9 +21,9 @@ class TaskManager
     ) {
     }
 
-    public function getTasksOfUser(int $userId, string $sortBy)
+    public function getTasksOfUser(User $user, string $orderBy)
     {
-        return $this->taskRepository->getTasksOfUserAndSortByField($userId, $sortBy);
+        return $this->taskRepository->getTasksOfUserAndOrderByField($user, $orderBy);
 
     }
 
