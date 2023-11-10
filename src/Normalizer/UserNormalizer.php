@@ -31,6 +31,7 @@ class UserNormalizer implements NormalizerInterface
             'birthday' => $object->getBirthday()->format('d-m-Y'),
             'country' => $object->getCountry(),
             'blocked' => $object->isStatus(),
+            'createdAt' => $object->getCreatedAt()->format('d-m-Y'),
         ];
     }
 
