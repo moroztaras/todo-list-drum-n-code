@@ -47,7 +47,7 @@ class Task
     private string $description;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'twitters')]
-    private ?User $user;
+    private User $user;
 
     #[ORM\ManyToOne(targetEntity: 'Task')]
     #[ORM\JoinColumn(name: 'sub_task_id', referencedColumnName: 'id')]
@@ -115,12 +115,12 @@ class Task
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 

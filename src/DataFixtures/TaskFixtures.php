@@ -8,6 +8,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Ramsey\Uuid\Nonstandard\Uuid;
 
 class TaskFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -21,28 +22,29 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $user = $this->getReference(UserFixtures::USER);
 
         for ($i = 1; $i <= 5; ++$i) {
-//            $task = (new Task())
-//                ->setTitle($faker->title)
-//                ->setDescription($faker->text)
-//                ->setStatus(Task::TASK_STATUS_TODO)
-//                ->setPriority(rand(1,5))
-//                ->
-//
-//            ;
-//
-//            $manager->persist($task);
+            $task = (new Task())
+                ->setTitle($faker->title)
+                ->setDescription($faker->text)
+                ->setStatus(Task::TASK_STATUS_TODO)
+                ->setPriority(rand(1,5))
+                ->setCompletedAt(new \DateTimeImmutable())
+                ->setUuid(Uuid::uuid4())
+                ->setUser($admin);
+
+            $manager->persist($task);
         }
 
         for ($i = 1; $i <= 5; ++$i) {
-            $twitter = (new Twitter())
-                ->setText($faker->word)
-                ->setPhoto('Motivation.jpeg')
-                ->setVideo('https://www.youtube.com/embed/19tIt3D_yiI')
-                ->setUser($user)
+            $task = (new Task())
+                ->setTitle($faker->title)
+                ->setDescription($faker->text)
+                ->setStatus(Task::TASK_STATUS_TODO)
+                ->setPriority(rand(1,5))
+                ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
-            ;
+                ->setUser($user);
 
-            $manager->persist($twitter);
+            $manager->persist($task);
         }
 
         $manager->flush();
