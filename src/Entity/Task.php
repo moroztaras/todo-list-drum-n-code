@@ -55,11 +55,12 @@ class Task
 
     private bool $isSubTask = false;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private DateTimeImmutable $completedAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeInterface $completedAt;
 
     public function __construct()
     {
+        $this->completedAt = new DateTimeImmutable();
         $this->createUuid();
         $this->setDateTime();
     }
