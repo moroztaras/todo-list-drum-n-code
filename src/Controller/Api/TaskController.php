@@ -6,6 +6,7 @@ use App\Entity\Task;
 use App\Entity\User;
 use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Api\ForbiddenJsonHttpException;
+use App\Exception\Api\TaskNotFoundException;
 use App\Manager\TaskManager;
 use App\Response\SuccessResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,6 +31,25 @@ class TaskController extends ApiController
 
         return $this->json([
             'tasks' => $this->taskManager->getTasksOfUser($user, $orderBy),
+        ], Response::HTTP_OK);
+    }
+
+    #[Route('/find', name: 'api_task_list', methods: 'GET')]
+    public function find(Request $request): JsonResponse
+    {
+        /** @var User $user */
+        $user = $this->getCurrentUser($request);
+        $field = $request->query->get('field');
+        $value = $request->query->get('value');
+
+        $tasks = $this->taskManager->findTasks($user, $field, $value);
+
+        if (!$tasks) {
+            throw new TaskNotFoundException();
+        }
+
+        return $this->json([
+            'tasks' => $tasks,
         ], Response::HTTP_OK);
     }
 

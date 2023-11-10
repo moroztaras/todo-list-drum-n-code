@@ -27,6 +27,11 @@ class TaskManager
 
     }
 
+    public function findTasks(User $user, string $field, string $value):array
+    {
+        return $this->taskRepository->findTasksByFieldAndValue($user, (string) $field, (string) $value);
+    }
+
     public function createNewTask(?User $user, string $content):Task
     {
         /** @var Task $task */
