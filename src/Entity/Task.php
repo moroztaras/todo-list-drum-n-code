@@ -34,7 +34,7 @@ class Task
         minMessage: 'The title must be at least 1 characters',
         maxMessage: 'The title must be no more than 256 characters'
     )]
-    #[ORM\Column(name: 'title', type: 'string')]
+    #[ORM\Column(name: 'title', type: 'string', unique: true)]
     private string $title;
 
     #[Assert\Length(
