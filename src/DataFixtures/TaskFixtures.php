@@ -22,29 +22,26 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
         $user = $this->getReference(UserFixtures::USER);
 
         for ($i = 1; $i <= 5; ++$i) {
-            $task = (new Task())
-                ->setTitle($faker->title)
-                ->setDescription($faker->text)
+            $task1 = (new Task())
+                ->setTitle($faker->title.rand(1,100))
+                ->setDescription((string) $faker->realText())
                 ->setStatus(Task::TASK_STATUS_TODO)
                 ->setPriority(rand(1,5))
                 ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
                 ->setUser($admin);
 
-            $manager->persist($task);
-        }
-
-        for ($i = 1; $i <= 5; ++$i) {
-            $task = (new Task())
-                ->setTitle($faker->title)
-                ->setDescription($faker->text)
+            $task2 = (new Task())
+                ->setTitle($faker->title.rand(1,100))
+                ->setDescription((string) $faker->realText())
                 ->setStatus(Task::TASK_STATUS_TODO)
                 ->setPriority(rand(1,5))
                 ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
                 ->setUser($user);
 
-            $manager->persist($task);
+            $manager->persist($task1);
+            $manager->persist($task2);
         }
 
         $manager->flush();
