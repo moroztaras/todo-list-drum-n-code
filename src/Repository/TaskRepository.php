@@ -24,28 +24,19 @@ class TaskRepository extends ServiceEntityRepository
         parent::__construct($registry, Task::class);
     }
 
-    public function getTasksOfUserAndOrderByField(User $user, string $orderBy):array
+    public function findTasksOfUserAndOrderByField(User $user, string $orderBy, string $field = null, string|int $value = null):array
     {
-        return $this->createQueryBuilder('t')
+        $query =  $this->createQueryBuilder('t')
             ->leftJoin('t.user', 'user')
             ->where('user.uuid = :uuid')
             ->setParameter('uuid', $user->getUuid())
             ->orderBy('t.'.$orderBy, Criteria::ASC)
-            ->getQuery()
-            ->getResult()
         ;
-    }
 
-    public function findTasksByFieldAndValue(User $user,string $field, string $value):array
-    {
-        return $this->createQueryBuilder('t')
-            ->leftJoin('t.user', 'user')
-            ->where('user.uuid = :uuid')
-            ->setParameter('uuid', $user->getUuid())
-            ->andWhere('t.'.$field.' = :value')
-            ->setParameter('value', $value)
-            ->getQuery()
-            ->getResult()
-            ;
+        if($field && $value) {
+            $query->andWhere('t.'.$field.' = :value')->setParameter('value', $value);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }

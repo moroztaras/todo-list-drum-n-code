@@ -17,9 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('api/task', name: 'api_task')]
 class TaskController extends ApiController
 {
-    public function __construct(
-        private TaskManager $taskManager,
-    ) {
+    public function __construct(private TaskManager $taskManager)
+    {
     }
 
     #[Route('', name: 'api_task_list', methods: 'GET')]
@@ -28,29 +27,16 @@ class TaskController extends ApiController
         /** @var User $user */
         $user = $this->getCurrentUser($request);
         $orderBy = $request->query->get('order_by', 'createdAt');
+        $field = $request->query->get('field',null);
+        $value = $request->query->get('value',null);
 
-        return $this->json([
-            'tasks' => $this->taskManager->getTasksOfUser($user, $orderBy),
-        ], Response::HTTP_OK);
-    }
-
-    #[Route('/find', name: 'api_task_list', methods: 'GET')]
-    public function find(Request $request): JsonResponse
-    {
-        /** @var User $user */
-        $user = $this->getCurrentUser($request);
-        $field = $request->query->get('field');
-        $value = $request->query->get('value');
-
-        $tasks = $this->taskManager->findTasks($user, $field, $value);
+        $tasks = $this->taskManager->getTasksOfUser($user, $orderBy, $field, $value);
 
         if (!$tasks) {
             throw new TaskNotFoundException();
         }
 
-        return $this->json([
-            'tasks' => $tasks,
-        ], Response::HTTP_OK);
+        return $this->json(['tasks' => $tasks], Response::HTTP_OK);
     }
 
     #[Route('', name: 'api_task_create', methods: 'POST')]
@@ -65,7 +51,7 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->createNewTask($user, $content)], Response::HTTP_OK, [], ['create' => true]);
     }
 
-    #[Route(path: '/{id}', name: 'api_task_edit', methods: 'PUT')]
+    #[Route(path: '/{uuid}', name: 'api_task_edit', methods: 'PUT')]
     public function edit(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
@@ -82,7 +68,7 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->editTask($content, $task)], Response::HTTP_OK, [], ['edit' => true]);
     }
 
-    #[Route(path: '/{id}', name: 'api_task_delete', methods: 'DELETE')]
+    #[Route(path: '/{uuid}', name: 'api_task_delete', methods: 'DELETE')]
     public function delete(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
@@ -92,7 +78,7 @@ class TaskController extends ApiController
             throw new ForbiddenJsonHttpException('403', 'Forbidden delete this task.');
         }
 
-        $this->taskManager->removeTask($task);
+        $this->taskManager->remove($task);
 
         return new SuccessResponse('Task was deleted');
     }

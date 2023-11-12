@@ -20,6 +20,7 @@ class TaskNormalizer implements NormalizerInterface
             'priority' => $object->getPriority(),
             'status' => $object->getStatus(),
             'sub_task' => $object->isSubTask(),
+            'completedAt' => $object->getCompletedAt()->format('c'),
             'created_at' => $object->getCreatedAt()->format('c'),
         ];
     }
