@@ -21,10 +21,9 @@ class TaskManager
     ) {
     }
 
-    public function getTasksOfUser(int $userId, string $sortBy)
+    public function getTasksOfUser(User $user, string $orderBy, string|null $field, string|int|null $value):array
     {
-        return $this->taskRepository->getTasksOfUserAndSortByField($userId, $sortBy);
-
+        return $this->taskRepository->findTasksOfUserAndOrderByField($user, $orderBy, $field, $value);
     }
 
     public function createNewTask(?User $user, string $content):Task
@@ -39,8 +38,8 @@ class TaskManager
             throw new ExpectedBadRequestJsonHttpException('Task already exists.');
         }
 
-        $task->setUser($user)->setCreatedAt(new \DateTime());
-        $this->saveTask($task);
+        $task->setUser($user)->setCreatedAt(new \DateTimeImmutable());
+        $this->save($task);
 
         return $task;
     }
@@ -55,20 +54,18 @@ class TaskManager
             UnwrappingDenormalizer::UNWRAP_PATH => '[task]',
         ], $validationGroups);
 
-        $this->saveTask($task);
+        $this->save($task);
 
         return $task;
     }
 
-    // Save task in DB
-    private function saveTask(Task $task): void
+    private function save(Task $task): void
     {
         $this->doctrine->getManager()->persist($task);
         $this->doctrine->getManager()->flush();
     }
 
-    // Remove task from DB
-    public function removeTask(Task $task)
+    public function remove(Task $task)
     {
         $this->doctrine->getManager()->remove($task);
         $this->doctrine->getManager()->flush();

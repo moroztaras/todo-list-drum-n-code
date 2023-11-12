@@ -10,39 +10,183 @@
 			"name": "Task",
 			"item": [
 				{
-					"name": "api tasks list",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "x-api-key",
-								"value": "abcdaaaa-1234-5678-dddd-000000000001",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "http://127.0.0.1:8000/api/task?sort_by=title",
-							"protocol": "http",
-							"host": [
-								"127",
-								"0",
-								"0",
-								"1"
-							],
-							"port": "8000",
-							"path": [
-								"api",
-								"task"
-							],
-							"query": [
-								{
-									"key": "sort_by",
-									"value": "title"
+					"name": "list",
+					"item": [
+						{
+							"name": "1 api tasks list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "abcdaaaa-1234-5678-dddd-000000000001",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/task",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"task"
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "2 api tasks list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "abcdaaaa-1234-5678-dddd-000000000001",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/task?order_by=title",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"task"
+									],
+									"query": [
+										{
+											"key": "order_by",
+											"value": "title"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3 api tasks list",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "abcdaaaa-1234-5678-dddd-000000000001",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/task?order_by=title&field=title&value=New title task",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"task"
+									],
+									"query": [
+										{
+											"key": "order_by",
+											"value": "title"
+										},
+										{
+											"key": "field",
+											"value": "title"
+										},
+										{
+											"key": "value",
+											"value": "New title task"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4 api tasks list Not found",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "x-api-key",
+										"value": "abcdaaaa-1234-5678-dddd-000000000001",
+										"type": "text"
+									},
+									{
+										"key": "x-api-key",
+										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "http://127.0.0.1:8000/api/task?order_by=title&field=title&value=Fake",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8000",
+									"path": [
+										"api",
+										"task"
+									],
+									"query": [
+										{
+											"key": "order_by",
+											"value": "title"
+										},
+										{
+											"key": "field",
+											"value": "title"
+										},
+										{
+											"key": "value",
+											"value": "Fake"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
 					"name": "api task new",
@@ -57,7 +201,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"task\": {\n        \"title\": \"New title task\",\n        \"priority\":5,\n        \"description\": \"Description new task\",\n        \"completedAt\": \"2023-10-10T15:42:37+00:00\"\n    }\n}"
+							"raw": "{\n    \"task\": {\n        \"title\": \"New title task10\",\n        \"priority\":5,\n        \"description\": \"Description new task\",\n        \"completedAt\": \"2023-11-12T20:04:09+00:00\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/task",
@@ -90,10 +234,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"task\": {\n        \"title\": \"Edit title task15\",\n        \"priority\":5,\n        \"status\": \"done\",\n        \"description\": \"Edit description task\",\n        \"completedAt\": \"2023-10-11T15:42:37+00:00\"\n    }\n}"
+							"raw": "{\n    \"task\": {\n        \"title\": \"Edit title task\",\n        \"priority\":5,\n        \"status\": \"done\",\n        \"description\": \"Edit description task\",\n        \"completedAt\": \"2023-10-13T18:00:00+00:00\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/task/1",
+							"raw": "http://127.0.0.1:8000/api/task/d4854864-067c-4892-bf60-473ee0d857c8",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -105,7 +249,7 @@
 							"path": [
 								"api",
 								"task",
-								"1"
+								"d4854864-067c-4892-bf60-473ee0d857c8"
 							]
 						}
 					},
@@ -123,7 +267,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/task/2",
+							"raw": "http://127.0.0.1:8000/api/task/d4854864-067c-4892-bf60-473ee0d857c8",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -135,7 +279,7 @@
 							"path": [
 								"api",
 								"task",
-								"2"
+								"d4854864-067c-4892-bf60-473ee0d857c8"
 							]
 						}
 					},

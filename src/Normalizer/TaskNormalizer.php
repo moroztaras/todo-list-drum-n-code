@@ -14,12 +14,13 @@ class TaskNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = []): array
     {
         return [
-            'id' => $object->getId(),
-            'priority' => $object->getPriority(),
+            'uuid' => $object->getUuid(),
             'title' => $object->getTitle(),
             'description' => $object->getDescription(),
+            'priority' => $object->getPriority(),
             'status' => $object->getStatus(),
             'sub_task' => $object->isSubTask(),
+            'completedAt' => $object->getCompletedAt()->format('c'),
             'created_at' => $object->getCreatedAt()->format('c'),
         ];
     }

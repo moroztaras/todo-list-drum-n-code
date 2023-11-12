@@ -3,16 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
 {
+    use UuidEntity;
+    use DateTimeEntity;
+
     const TASK_STATUS_TODO = 'todo';
     const TASK_STATUS_DONE = 'done';
 
@@ -33,7 +34,7 @@ class Task
         minMessage: 'The title must be at least 1 characters',
         maxMessage: 'The title must be no more than 256 characters'
     )]
-    #[ORM\Column(name: 'title', type: 'string')]
+    #[ORM\Column(name: 'title', type: 'string', unique: true)]
     private string $title;
 
     #[Assert\Length(
@@ -46,7 +47,7 @@ class Task
     private string $description;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'twitters')]
-    private ?User $user;
+    private User $user;
 
     #[ORM\ManyToOne(targetEntity: 'Task')]
     #[ORM\JoinColumn(name: 'sub_task_id', referencedColumnName: 'id')]
@@ -54,17 +55,16 @@ class Task
 
     private bool $isSubTask = false;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $createdAt;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeInterface $completedAt;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    private \DateTime $completedAt;
-
-    public function setDateTime(): void
+    public function __construct()
     {
-        $this->createdAt = new \DateTime();
-        $this->completedAt = new \DateTime();
+        $this->completedAt = new DateTimeImmutable();
+        $this->createUuid();
+        $this->setDateTime();
     }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -116,12 +116,12 @@ class Task
         return $this;
     }
 
-    public function getUser(): ?User
+    public function getUser(): User
     {
         return $this->user;
     }
 
-    public function setUser(?User $user): self
+    public function setUser(User $user): self
     {
         $this->user = $user;
 
@@ -157,24 +157,12 @@ class Task
         return $this;
     }
 
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTime $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getCompletedAt(): \DateTime
+    public function getCompletedAt(): DateTimeImmutable
     {
         return $this->completedAt;
     }
 
-    public function setCompletedAt(\DateTime $completedAt): self
+    public function setCompletedAt(DateTimeImmutable $completedAt): self
     {
         $this->completedAt = $completedAt;
 
