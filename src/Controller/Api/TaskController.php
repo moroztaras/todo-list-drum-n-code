@@ -14,14 +14,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('api/task', name: 'api_task')]
+#[Route('api/tasks', name: 'api_task')]
 class TaskController extends ApiController
 {
     public function __construct(private TaskManager $taskManager)
     {
     }
 
-    #[Route('', name: 'api_task_list', methods: 'GET')]
+    #[Route('', name: 'api_tasks_list', methods: 'GET')]
     public function list(Request $request): JsonResponse
     {
         /** @var User $user */
@@ -39,7 +39,7 @@ class TaskController extends ApiController
         return $this->json(['tasks' => $tasks], Response::HTTP_OK);
     }
 
-    #[Route('', name: 'api_task_create', methods: 'POST')]
+    #[Route('', name: 'api_tasks_create', methods: 'POST')]
     public function create(Request $request): JsonResponse
     {
         $user = $this->getCurrentUser($request);
@@ -51,7 +51,7 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->createNewTask($user, $content)], Response::HTTP_OK, [], ['create' => true]);
     }
 
-    #[Route(path: '/{uuid}', name: 'api_task_edit', methods: 'PUT')]
+    #[Route(path: '/{uuid}', name: 'api_tasks_edit', methods: 'PUT')]
     public function edit(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
@@ -68,7 +68,7 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->editTask($content, $task)], Response::HTTP_OK, [], ['edit' => true]);
     }
 
-    #[Route(path: '/{uuid}', name: 'api_task_delete', methods: 'DELETE')]
+    #[Route(path: '/{uuid}', name: 'api_tasks_delete', methods: 'DELETE')]
     public function delete(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);

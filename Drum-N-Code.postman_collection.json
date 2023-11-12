@@ -30,7 +30,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://127.0.0.1:8000/api/task",
+									"raw": "http://127.0.0.1:8000/api/tasks",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -41,7 +41,7 @@
 									"port": "8000",
 									"path": [
 										"api",
-										"task"
+										"tasks"
 									]
 								}
 							},
@@ -65,7 +65,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://127.0.0.1:8000/api/task?order_by=title",
+									"raw": "http://127.0.0.1:8000/api/tasks?order_by=title",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -76,7 +76,7 @@
 									"port": "8000",
 									"path": [
 										"api",
-										"task"
+										"tasks"
 									],
 									"query": [
 										{
@@ -106,7 +106,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://127.0.0.1:8000/api/task?order_by=title&field=title&value=New title task",
+									"raw": "http://127.0.0.1:8000/api/tasks?order_by=title&field=title&value=New title task",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -117,7 +117,7 @@
 									"port": "8000",
 									"path": [
 										"api",
-										"task"
+										"tasks"
 									],
 									"query": [
 										{
@@ -155,7 +155,7 @@
 									}
 								],
 								"url": {
-									"raw": "http://127.0.0.1:8000/api/task?order_by=title&field=title&value=Fake",
+									"raw": "http://127.0.0.1:8000/api/tasks?order_by=title&field=title&value=Fake",
 									"protocol": "http",
 									"host": [
 										"127",
@@ -166,7 +166,7 @@
 									"port": "8000",
 									"path": [
 										"api",
-										"task"
+										"tasks"
 									],
 									"query": [
 										{
@@ -204,7 +204,7 @@
 							"raw": "{\n    \"task\": {\n        \"title\": \"New title task10\",\n        \"priority\":5,\n        \"description\": \"Description new task\",\n        \"completedAt\": \"2023-11-12T20:04:09+00:00\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/task",
+							"raw": "http://127.0.0.1:8000/api/tasks",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -215,7 +215,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"task"
+								"tasks"
 							]
 						}
 					},
@@ -237,7 +237,7 @@
 							"raw": "{\n    \"task\": {\n        \"title\": \"Edit title task\",\n        \"priority\":5,\n        \"status\": \"done\",\n        \"description\": \"Edit description task\",\n        \"completedAt\": \"2023-10-13T18:00:00+00:00\"\n    }\n}"
 						},
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/task/d4854864-067c-4892-bf60-473ee0d857c8",
+							"raw": "http://127.0.0.1:8000/api/tasks/d4854864-067c-4892-bf60-473ee0d857c8",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -248,7 +248,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"task",
+								"tasks",
 								"d4854864-067c-4892-bf60-473ee0d857c8"
 							]
 						}
@@ -267,7 +267,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://127.0.0.1:8000/api/task/d4854864-067c-4892-bf60-473ee0d857c8",
+							"raw": "http://127.0.0.1:8000/api/tasks/d4854864-067c-4892-bf60-473ee0d857c8",
 							"protocol": "http",
 							"host": [
 								"127",
@@ -278,7 +278,7 @@
 							"port": "8000",
 							"path": [
 								"api",
-								"task",
+								"tasks",
 								"d4854864-067c-4892-bf60-473ee0d857c8"
 							]
 						}
