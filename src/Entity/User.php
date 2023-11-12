@@ -23,7 +23,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[Assert\Email]
     #[ORM\Column(length: 255, unique: true)]
@@ -75,7 +75,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         $this->setDateTime();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
