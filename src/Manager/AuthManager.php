@@ -44,7 +44,7 @@ class AuthManager
     {
         /** @var LoginModel $login */
         $login = $this->apiObjectValidator->deserializeAndValidate($content, LoginModel::class, [
-            UnwrappingDenormalizer::UNWRAP_PATH => '[sing-in]',
+            UnwrappingDenormalizer::UNWRAP_PATH => '[singIn]',
         ]);
         $user = $this->userRepository->findOneByEmail($login->getEmail());
 

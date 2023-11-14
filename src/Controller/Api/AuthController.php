@@ -4,7 +4,8 @@ namespace App\Controller\Api;
 
 use App\Manager\AuthManager;
 use App\Exception\Api\BadRequestJsonHttpException;
-use App\Model\LoginModel;
+use App\Model\LoginResponseModel;
+use App\Model\UserApiKeyResponseModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,9 +32,13 @@ class AuthController extends ApiController
 
     #[Route('/sing-in', name: 'api_auth_sing_in', methods: 'POST')]
     /**
-     * @OA\RequestBody(
-     *     @Model(type=LoginModel::class)
+     * @OA\RequestBody(@Model(type=LoginResponseModel::class))
+     * @OA\Response(
+     *     response=200,
+     *     description="Sing in success",
+     *     @Model(type=UserApiKeyResponseModel::class)
      * )
+     * @OA\Response(response=400, description="Bad Request")
      */
     public function signIn(Request $request):JsonResponse
     {
@@ -41,6 +46,6 @@ class AuthController extends ApiController
             throw new BadRequestJsonHttpException('Bad Request.');
         }
 
-        return $this->json(['user' => $this->authManager->userAuthentication($content)], Response::HTTP_OK, [], ['sing-in' => true]);
+        return $this->json(['user' => $this->authManager->userAuthentication($content)], Response::HTTP_OK, [], ['signIn' => true]);
     }
 }
