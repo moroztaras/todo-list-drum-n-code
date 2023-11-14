@@ -4,10 +4,13 @@ namespace App\Controller\Api;
 
 use App\Manager\AuthManager;
 use App\Exception\Api\BadRequestJsonHttpException;
+use App\Model\LoginModel;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 
 #[Route('api/auth')]
 class AuthController extends ApiController
@@ -27,6 +30,11 @@ class AuthController extends ApiController
     }
 
     #[Route('/sing-in', name: 'api_auth_sing_in', methods: 'POST')]
+    /**
+     * @OA\RequestBody(
+     *     @Model(type=LoginModel::class)
+     * )
+     */
     public function signIn(Request $request):JsonResponse
     {
         if (!($content = $request->getContent())) {
