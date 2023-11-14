@@ -73,7 +73,7 @@ class TaskController extends ApiController
     {
         $user = $this->getCurrentUser($request);
 
-        if (($user->getId() !== $task->getUser()->getId()) || ($task->getStatus() === Task::TASK_STATUS_TODO))
+        if (($user->getId() !== $task->getUser()->getId()) || ($task->getStatus() === Task::TASK_STATUS_DONE))
         {
             throw new ForbiddenJsonHttpException('403', 'Forbidden delete this task.');
         }
