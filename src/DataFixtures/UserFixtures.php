@@ -21,11 +21,10 @@ class UserFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        // Use faker
         $faker = Factory::create('EN_en');
 
         $admin = new User();
-        $admin->setEmail('admin@drum-n-code.com"')
+        $admin->setEmail('admin@drum-n-code.com')
             ->setFirstName($faker->firstName)
             ->setLastName($faker->lastName)
             ->setRoles([User::ROLE_ADMIN])
@@ -63,7 +62,6 @@ class UserFixtures extends Fixture
 
         $manager->flush();
 
-        // Add References - link from other fixture on this fixture
         foreach ($users as $code => $user) {
             $this->addReference($code, $user);
         }
