@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use DateTimeInterface;
-
 class UserModel
 {
     private string $email;
@@ -14,12 +12,11 @@ class UserModel
 
     private string $lastName;
 
-    private DateTimeInterface $birthday;
+    private \DateTimeInterface $birthday;
 
     private string $gender;
 
     private string $country;
-
 
     public function setEmail(string $email): self
     {

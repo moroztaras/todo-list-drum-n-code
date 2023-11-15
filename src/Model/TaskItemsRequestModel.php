@@ -2,11 +2,8 @@
 
 namespace App\Model;
 
-use DateTimeImmutable;
-
 class TaskItemsRequestModel
 {
-
     private string $title;
 
     private string $description;
@@ -15,7 +12,7 @@ class TaskItemsRequestModel
 
     private int $priority;
 
-    private DateTimeImmutable $completedAt;
+    private \DateTimeImmutable $completedAt;
 
     public function getStatus(): string
     {
@@ -65,12 +62,12 @@ class TaskItemsRequestModel
         return $this;
     }
 
-    public function getCompletedAt(): DateTimeImmutable
+    public function getCompletedAt(): \DateTimeImmutable
     {
         return $this->completedAt;
     }
 
-    public function setCompletedAt(DateTimeImmutable $completedAt): self
+    public function setCompletedAt(\DateTimeImmutable $completedAt): self
     {
         $this->completedAt = $completedAt;
 

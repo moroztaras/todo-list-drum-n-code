@@ -3,7 +3,6 @@
 namespace App\Normalizer;
 
 use App\Entity\User;
-use App\Manager\FriendManager;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class UserNormalizer implements NormalizerInterface

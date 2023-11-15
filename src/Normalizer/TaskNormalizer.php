@@ -8,8 +8,8 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class TaskNormalizer implements NormalizerInterface
 {
     /**
-     * @param Task    $object object to normalize
-     * @param null    $format
+     * @param Task $object object to normalize
+     * @param null $format
      */
     public function normalize($object, $format = null, array $context = []): array
     {

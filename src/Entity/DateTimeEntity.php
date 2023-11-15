@@ -2,9 +2,7 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use DateTimeImmutable;
 
 trait DateTimeEntity
 {
@@ -41,12 +39,12 @@ trait DateTimeEntity
     #[ORM\PrePersist]
     public function setUpdatedValue(): void
     {
-        $this->updatedAt = new DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
     }
 
     public function setDateTime(): void
     {
-        $this->updatedAt = new DateTimeImmutable();
-        $this->createdAt = new DateTimeImmutable();
+        $this->updatedAt = new \DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
     }
 }

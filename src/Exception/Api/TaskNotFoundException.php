@@ -2,7 +2,6 @@
 
 namespace App\Exception\Api;
 
-
 class TaskNotFoundException extends JsonHttpException
 {
     public function __construct($message = 'Tasks Not Found', $data = null)

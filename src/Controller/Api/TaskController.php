@@ -8,8 +8,8 @@ use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Api\ForbiddenJsonHttpException;
 use App\Exception\Api\TaskNotFoundException;
 use App\Manager\TaskManager;
-use App\Model\TaskResponseModel;
 use App\Model\TaskRequestModel;
+use App\Model\TaskResponseModel;
 use App\Response\SuccessResponse;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Annotations as OA;
@@ -30,13 +30,17 @@ class TaskController extends ApiController
      *     name="x-api-key",
      *     in="header",
      *     description="X-API-KEY",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\Response(
      *     response=200,
      *     description="List tasks of user.",
+     *
      *     @Model(type=TaskResponseModel::class)
      * )
+     *
      * @OA\Response(response=401, description="User Not Unauthorized")
      */
     #[Route('', name: 'api_tasks_list', methods: 'GET')]
@@ -45,8 +49,8 @@ class TaskController extends ApiController
         /** @var User $user */
         $user = $this->getCurrentUser($request);
         $orderBy = $request->query->get('order_by', 'createdAt');
-        $field = $request->query->get('field',null);
-        $value = $request->query->get('value',null);
+        $field = $request->query->get('field', null);
+        $value = $request->query->get('value', null);
 
         $tasks = $this->taskManager->getTasksOfUser($user, $orderBy, $field, $value);
 
@@ -62,14 +66,19 @@ class TaskController extends ApiController
      *     name="x-api-key",
      *     in="header",
      *     description="X-API-KEY",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\RequestBody(@Model(type=TaskRequestModel::class))
+     *
      * @OA\Response(
      *     response=200,
      *     description="New task created successful.",
+     *
      *     @Model(type=TaskResponseModel::class)
      * )
+     *
      * @OA\Response(response=400, description="Bad Request")
      * @OA\Response(response=401, description="User Not Unauthorized")
      */
@@ -90,14 +99,19 @@ class TaskController extends ApiController
      *     name="x-api-key",
      *     in="header",
      *     description="X-API-KEY",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\RequestBody(@Model(type=TaskRequestModel::class))
+     *
      * @OA\Response(
      *     response=200,
      *     description="Task edited successful.",
+     *
      *     @Model(type=TaskResponseModel::class)
      * )
+     *
      * @OA\Response(response=400, description="Bad Request")
      * @OA\Response(response=401, description="User Not Unauthorized")
      * @OA\Response(response=403, description="Forbidden edit this task.")
@@ -107,8 +121,7 @@ class TaskController extends ApiController
     {
         $user = $this->getCurrentUser($request);
 
-        if ($user->getId() !== $task->getUser()->getId())
-        {
+        if ($user->getId() !== $task->getUser()->getId()) {
             throw new ForbiddenJsonHttpException('403', 'Forbidden edit this task.');
         }
 
@@ -124,8 +137,10 @@ class TaskController extends ApiController
      *     name="x-api-key",
      *     in="header",
      *     description="X-API-KEY",
+     *
      *     @OA\Schema(type="string")
      * )
+     *
      * @OA\Response(response=200, description="Task was deleted")
      * @OA\Response(response=401, description="User Not Unauthorized")
      * @OA\Response(response=403, description="Forbidden delete this task.")
@@ -135,8 +150,7 @@ class TaskController extends ApiController
     {
         $user = $this->getCurrentUser($request);
 
-        if (($user->getId() !== $task->getUser()->getId()) || ($task->getStatus() === Task::TASK_STATUS_DONE))
-        {
+        if (($user->getId() !== $task->getUser()->getId()) || (Task::TASK_STATUS_DONE === $task->getStatus())) {
             throw new ForbiddenJsonHttpException('403', 'Forbidden delete this task.');
         }
 
