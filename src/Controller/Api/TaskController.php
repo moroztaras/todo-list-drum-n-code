@@ -106,6 +106,17 @@ class TaskController extends ApiController
     }
 
     #[Route(path: '/{uuid}', name: 'api_tasks_delete', methods: 'DELETE')]
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Response(response=200, description="Task was deleted")
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     * @OA\Response(response=403, description="Forbidden delete this task.")
+     */
     public function delete(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
