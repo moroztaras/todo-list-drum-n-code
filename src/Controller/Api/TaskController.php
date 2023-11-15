@@ -71,6 +71,23 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->createNewTask($user, $content)], Response::HTTP_OK, [], ['create' => true]);
     }
 
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\RequestBody(@Model(type=TaskRequestModel::class))
+     * @OA\Response(
+     *     response=200,
+     *     description="Task edited successful.",
+     *     @Model(type=TaskResponseModel::class)
+     * )
+     * @OA\Response(response=400, description="Bad Request")
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     * @OA\Response(response=403, description="Forbidden edit this task.")
+     */
     #[Route(path: '/{uuid}', name: 'api_tasks_edit', methods: 'PUT')]
     public function edit(Request $request, Task $task): JsonResponse
     {
