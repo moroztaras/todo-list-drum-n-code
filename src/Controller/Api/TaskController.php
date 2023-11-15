@@ -25,6 +25,20 @@ class TaskController extends ApiController
     {
     }
 
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Response(
+     *     response=200,
+     *     description="List tasks of user.",
+     *     @Model(type=TaskResponseModel::class)
+     * )
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     */
     #[Route('', name: 'api_tasks_list', methods: 'GET')]
     public function list(Request $request): JsonResponse
     {
@@ -43,7 +57,6 @@ class TaskController extends ApiController
         return $this->json(['tasks' => $tasks], Response::HTTP_OK);
     }
 
-    #[Route('', name: 'api_tasks_create', methods: 'POST')]
     /**
      * @OA\Parameter(
      *     name="x-api-key",
@@ -60,6 +73,7 @@ class TaskController extends ApiController
      * @OA\Response(response=400, description="Bad Request")
      * @OA\Response(response=401, description="User Not Unauthorized")
      */
+    #[Route('', name: 'api_tasks_create', methods: 'POST')]
     public function create(Request $request): JsonResponse
     {
         $user = $this->getCurrentUser($request);
@@ -105,7 +119,6 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->editTask($content, $task)], Response::HTTP_OK, [], ['edit' => true]);
     }
 
-    #[Route(path: '/{uuid}', name: 'api_tasks_delete', methods: 'DELETE')]
     /**
      * @OA\Parameter(
      *     name="x-api-key",
@@ -117,6 +130,7 @@ class TaskController extends ApiController
      * @OA\Response(response=401, description="User Not Unauthorized")
      * @OA\Response(response=403, description="Forbidden delete this task.")
      */
+    #[Route(path: '/{uuid}', name: 'api_tasks_delete', methods: 'DELETE')]
     public function delete(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
