@@ -3,7 +3,6 @@
 namespace App\Normalizer;
 
 use App\Entity\User;
-use App\Manager\FriendManager;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class UserNormalizer implements NormalizerInterface
@@ -16,6 +15,12 @@ class UserNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = []): array
     {
+        if (isset($context['signIn'])) {
+            return [
+                'apiKey' => $object->getApiKey(),
+            ];
+        }
+
         return [
             'uuid' => $object->getUuid(),
             'firstName' => $object->getFirstName(),
@@ -25,6 +30,7 @@ class UserNormalizer implements NormalizerInterface
             'birthday' => $object->getBirthday()->format('d-m-Y'),
             'country' => $object->getCountry(),
             'blocked' => $object->isStatus(),
+            'createdAt' => $object->getCreatedAt()->format('d-m-Y'),
         ];
     }
 

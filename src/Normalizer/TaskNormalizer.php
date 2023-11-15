@@ -8,19 +8,20 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 class TaskNormalizer implements NormalizerInterface
 {
     /**
-     * @param Task    $object object to normalize
-     * @param null    $format
+     * @param Task $object object to normalize
+     * @param null $format
      */
     public function normalize($object, $format = null, array $context = []): array
     {
         return [
-            'id' => $object->getId(),
-            'priority' => $object->getPriority(),
+            'uuid' => $object->getUuid(),
             'title' => $object->getTitle(),
             'description' => $object->getDescription(),
+            'priority' => $object->getPriority(),
             'status' => $object->getStatus(),
-            'sub_task' => $object->isSubTask(),
-            'created_at' => $object->getCreatedAt()->format('c'),
+            'subTask' => $object->isSubTask(),
+            'completedAt' => $object->getCompletedAt()->format('c'),
+            'createdAt' => $object->getCreatedAt()->format('c'),
         ];
     }
 

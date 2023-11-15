@@ -23,7 +23,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private int $id;
 
     #[Assert\Email]
     #[ORM\Column(length: 255, unique: true)]
@@ -75,7 +75,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         $this->setDateTime();
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -194,7 +194,7 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
@@ -249,11 +249,10 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
         return $this;
     }
 
-    public function removeTwitter(Task $task): self
+    public function removeTask(Task $task): self
     {
         if ($this->tasks->contains($task)) {
             $this->tasks->removeElement($task);
-            // set the owning side to null (unless already changed)
             if ($task->getUser() === $this) {
                 $task->setUser(null);
             }

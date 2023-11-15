@@ -1,0 +1,9 @@
+nelmio_api_doc:
+    documentation:
+        info:
+            title: TODO list Drum-N-Code
+            description: API Docomentation
+            version: 1.0.0
+    areas:
+        path_patterns:
+            - ^/api(?!/doc$)
