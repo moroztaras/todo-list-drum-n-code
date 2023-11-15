@@ -8,7 +8,11 @@ use App\Exception\Api\BadRequestJsonHttpException;
 use App\Exception\Api\ForbiddenJsonHttpException;
 use App\Exception\Api\TaskNotFoundException;
 use App\Manager\TaskManager;
+use App\Model\TaskResponseModel;
+use App\Model\TaskRequestModel;
 use App\Response\SuccessResponse;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,6 +25,20 @@ class TaskController extends ApiController
     {
     }
 
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Response(
+     *     response=200,
+     *     description="List tasks of user.",
+     *     @Model(type=TaskResponseModel::class)
+     * )
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     */
     #[Route('', name: 'api_tasks_list', methods: 'GET')]
     public function list(Request $request): JsonResponse
     {
@@ -39,6 +57,22 @@ class TaskController extends ApiController
         return $this->json(['tasks' => $tasks], Response::HTTP_OK);
     }
 
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\RequestBody(@Model(type=TaskRequestModel::class))
+     * @OA\Response(
+     *     response=200,
+     *     description="New task created successful.",
+     *     @Model(type=TaskResponseModel::class)
+     * )
+     * @OA\Response(response=400, description="Bad Request")
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     */
     #[Route('', name: 'api_tasks_create', methods: 'POST')]
     public function create(Request $request): JsonResponse
     {
@@ -51,6 +85,23 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->createNewTask($user, $content)], Response::HTTP_OK, [], ['create' => true]);
     }
 
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\RequestBody(@Model(type=TaskRequestModel::class))
+     * @OA\Response(
+     *     response=200,
+     *     description="Task edited successful.",
+     *     @Model(type=TaskResponseModel::class)
+     * )
+     * @OA\Response(response=400, description="Bad Request")
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     * @OA\Response(response=403, description="Forbidden edit this task.")
+     */
     #[Route(path: '/{uuid}', name: 'api_tasks_edit', methods: 'PUT')]
     public function edit(Request $request, Task $task): JsonResponse
     {
@@ -68,12 +119,23 @@ class TaskController extends ApiController
         return $this->json(['task' => $this->taskManager->editTask($content, $task)], Response::HTTP_OK, [], ['edit' => true]);
     }
 
+    /**
+     * @OA\Parameter(
+     *     name="x-api-key",
+     *     in="header",
+     *     description="X-API-KEY",
+     *     @OA\Schema(type="string")
+     * )
+     * @OA\Response(response=200, description="Task was deleted")
+     * @OA\Response(response=401, description="User Not Unauthorized")
+     * @OA\Response(response=403, description="Forbidden delete this task.")
+     */
     #[Route(path: '/{uuid}', name: 'api_tasks_delete', methods: 'DELETE')]
     public function delete(Request $request, Task $task): JsonResponse
     {
         $user = $this->getCurrentUser($request);
 
-        if (($user->getId() !== $task->getUser()->getId()) || ($task->getStatus() === Task::TASK_STATUS_TODO))
+        if (($user->getId() !== $task->getUser()->getId()) || ($task->getStatus() === Task::TASK_STATUS_DONE))
         {
             throw new ForbiddenJsonHttpException('403', 'Forbidden delete this task.');
         }

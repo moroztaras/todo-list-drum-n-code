@@ -15,15 +15,11 @@ class ApiObjectValidator
     public function __construct(
         private ValidatorInterface $validator,
         private SerializerInterface $serializer,
-//        private LoggerInterface $logger
     ) {
     }
 
     public function deserializeAndValidate($data, $class, array $context = [], array $groups = []): object
     {
-//        if (!isset($context[AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE])) {
-//            $context[AbstractObjectNormalizer::DEEP_OBJECT_TO_POPULATE] = true;
-//        }
 
         try {
             $object = $this->serializer->deserialize($data, $class, 'json', $context);

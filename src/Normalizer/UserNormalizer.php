@@ -16,7 +16,7 @@ class UserNormalizer implements NormalizerInterface
      */
     public function normalize($object, $format = null, array $context = []): array
     {
-        if (isset($context['sing-in'])) {
+        if (isset($context['signIn'])) {
             return [
                 'apiKey' => $object->getApiKey(),
             ];
