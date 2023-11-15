@@ -21,12 +21,6 @@
 										"key": "x-api-key",
 										"value": "abcdaaaa-1234-5678-dddd-000000000001",
 										"type": "text"
-									},
-									{
-										"key": "x-api-key",
-										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
-										"type": "text",
-										"disabled": true
 									}
 								],
 								"url": {
@@ -56,12 +50,6 @@
 										"key": "x-api-key",
 										"value": "abcdaaaa-1234-5678-dddd-000000000001",
 										"type": "text"
-									},
-									{
-										"key": "x-api-key",
-										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
-										"type": "text",
-										"disabled": true
 									}
 								],
 								"url": {
@@ -97,12 +85,6 @@
 										"key": "x-api-key",
 										"value": "abcdaaaa-1234-5678-dddd-000000000001",
 										"type": "text"
-									},
-									{
-										"key": "x-api-key",
-										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
-										"type": "text",
-										"disabled": true
 									}
 								],
 								"url": {
@@ -146,12 +128,6 @@
 										"key": "x-api-key",
 										"value": "abcdaaaa-1234-5678-dddd-000000000001",
 										"type": "text"
-									},
-									{
-										"key": "x-api-key",
-										"value": "7cea7f98-ab6c-47a6-a323-7abbc49dc1d5",
-										"type": "text",
-										"disabled": true
 									}
 								],
 								"url": {
@@ -201,7 +177,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"task\": {\n        \"title\": \"New title task10\",\n        \"priority\":5,\n        \"description\": \"Description new task\",\n        \"completedAt\": \"2023-11-12T20:04:09+00:00\"\n    }\n}"
+							"raw": "{\n    \"task\": {\n        \"title\": \"New title task\",\n        \"description\": \"Description new task\",\n        \"status\": \"todo\",\n        \"priority\":5,\n        \"completedAt\": \"2023-11-12T20:04:09+00:00\"\n    }\n}"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/tasks",
@@ -325,7 +301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"sing-in\": {\n    \"email\": \"user@drum-n-code.com\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
+							"raw": "{\n  \"singIn\": {\n    \"email\": \"admin@drum-n-code.com\",\n    \"plain_password\": \"qwerty\"\n  }\n}"
 						},
 						"url": {
 							"raw": "http://127.0.0.1:8000/api/auth/sing-in",
