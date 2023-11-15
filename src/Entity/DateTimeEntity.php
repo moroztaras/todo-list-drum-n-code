@@ -38,7 +38,6 @@ trait DateTimeEntity
         return $this;
     }
 
-    // The date is set before the data will persist to the database.
     #[ORM\PrePersist]
     public function setUpdatedValue(): void
     {
