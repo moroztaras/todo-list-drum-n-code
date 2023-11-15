@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use DateTimeInterface;
-
 class UserResponseModel
 {
     private string $uuid;
@@ -14,7 +12,7 @@ class UserResponseModel
 
     private string $lastName;
 
-    private DateTimeInterface $birthday;
+    private \DateTimeInterface $birthday;
 
     private string $gender;
 
@@ -22,7 +20,7 @@ class UserResponseModel
 
     private bool $blocked;
 
-    private DateTimeInterface $createdAt;
+    private \DateTimeInterface $createdAt;
 
     public function setEmail(string $email): self
     {

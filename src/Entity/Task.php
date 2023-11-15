@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\TaskRepository;
-use DateTimeImmutable;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -14,8 +12,8 @@ class Task
     use UuidEntity;
     use DateTimeEntity;
 
-    const TASK_STATUS_TODO = 'todo';
-    const TASK_STATUS_DONE = 'done';
+    public const TASK_STATUS_TODO = 'todo';
+    public const TASK_STATUS_DONE = 'done';
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -25,7 +23,7 @@ class Task
     #[ORM\Column(name: 'status', type: 'string')]
     private string $status = self::TASK_STATUS_TODO;
 
-    #[ORM\Column(name:  'priority', type:'integer', length: 1, nullable: false)]
+    #[ORM\Column(name: 'priority', type: 'integer', length: 1, nullable: false)]
     private int $priority;
 
     #[Assert\Length(
@@ -60,7 +58,7 @@ class Task
 
     public function __construct()
     {
-        $this->completedAt = new DateTimeImmutable();
+        $this->completedAt = new \DateTimeImmutable();
         $this->createUuid();
         $this->setDateTime();
     }
@@ -69,6 +67,7 @@ class Task
     {
         return $this->id;
     }
+
     public function getStatus(): string
     {
         return $this->status;
@@ -92,6 +91,7 @@ class Task
 
         return $this;
     }
+
     public function getTitle(): string
     {
         return $this->title;
@@ -157,12 +157,12 @@ class Task
         return $this;
     }
 
-    public function getCompletedAt(): DateTimeImmutable
+    public function getCompletedAt(): \DateTimeImmutable
     {
         return $this->completedAt;
     }
 
-    public function setCompletedAt(DateTimeImmutable $completedAt): self
+    public function setCompletedAt(\DateTimeImmutable $completedAt): self
     {
         $this->completedAt = $completedAt;
 

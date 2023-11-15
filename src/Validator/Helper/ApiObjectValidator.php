@@ -3,9 +3,7 @@
 namespace App\Validator\Helper;
 
 use App\Exception\Helper\BadRequestJsonHttpException;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Serializer\Exception\UnexpectedValueException;
-use Symfony\Component\Serializer\Normalizer\AbstractObjectNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -20,7 +18,6 @@ class ApiObjectValidator
 
     public function deserializeAndValidate($data, $class, array $context = [], array $groups = []): object
     {
-
         try {
             $object = $this->serializer->deserialize($data, $class, 'json', $context);
         } catch (UnexpectedValueException|\TypeError $e) {

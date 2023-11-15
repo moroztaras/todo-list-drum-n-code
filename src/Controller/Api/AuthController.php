@@ -2,18 +2,18 @@
 
 namespace App\Controller\Api;
 
-use App\Manager\AuthManager;
 use App\Exception\Api\BadRequestJsonHttpException;
+use App\Manager\AuthManager;
 use App\Model\LoginResponseModel;
 use App\Model\SingUpModel;
 use App\Model\SingUpResponseModel;
 use App\Model\UserApiKeyResponseModel;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Annotations as OA;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Annotations as OA;
 
 #[Route('api/auth')]
 class AuthController extends ApiController
@@ -25,11 +25,14 @@ class AuthController extends ApiController
     #[Route('/sing-up', name: 'api_auth_sing_up', methods: 'POST')]
     /**
      * @OA\RequestBody(@Model(type=SingUpModel::class))
+     *
      * @OA\Response(
      *     response=200,
      *     description="New user registration was successful.",
+     *
      *     @Model(type=SingUpResponseModel::class)
      * )
+     *
      * @OA\Response(response=400, description="Bad Request")
      */
     public function signUp(Request $request): JsonResponse
@@ -44,14 +47,17 @@ class AuthController extends ApiController
     #[Route('/sing-in', name: 'api_auth_sing_in', methods: 'POST')]
     /**
      * @OA\RequestBody(@Model(type=LoginResponseModel::class))
+     *
      * @OA\Response(
      *     response=200,
      *     description="Sing in successful.",
+     *
      *     @Model(type=UserApiKeyResponseModel::class)
      * )
+     *
      * @OA\Response(response=400, description="Bad Request")
      */
-    public function signIn(Request $request):JsonResponse
+    public function signIn(Request $request): JsonResponse
     {
         if (!($content = $request->getContent())) {
             throw new BadRequestJsonHttpException('Bad Request.');

@@ -23,20 +23,20 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 1; $i <= 5; ++$i) {
             $subTask1 = (new Task())
-                ->setTitle($faker->title.rand(1,100))
+                ->setTitle($faker->title.rand(1, 100))
                 ->setDescription((string) $faker->realText())
                 ->setStatus(Task::TASK_STATUS_TODO)
-                ->setPriority(rand(1,5))
+                ->setPriority(rand(1, 5))
                 ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
                 ->setUser($admin)
             ;
 
             $task1 = (new Task())
-                ->setTitle($faker->title.rand(1,100))
+                ->setTitle($faker->title.rand(1, 100))
                 ->setDescription((string) $faker->realText())
                 ->setStatus(Task::TASK_STATUS_TODO)
-                ->setPriority(rand(1,5))
+                ->setPriority(rand(1, 5))
                 ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
                 ->setUser($admin)
@@ -44,19 +44,19 @@ class TaskFixtures extends Fixture implements DependentFixtureInterface
             ;
 
             $subTask2 = (new Task())
-                ->setTitle($faker->title.rand(1,100))
+                ->setTitle($faker->title.rand(1, 100))
                 ->setDescription((string) $faker->realText())
                 ->setStatus(Task::TASK_STATUS_TODO)
-                ->setPriority(rand(1,5))
+                ->setPriority(rand(1, 5))
                 ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
                 ->setUser($admin)
             ;
             $task2 = (new Task())
-                ->setTitle($faker->title.rand(1,100))
+                ->setTitle($faker->title.rand(1, 100))
                 ->setDescription((string) $faker->realText())
                 ->setStatus(Task::TASK_STATUS_TODO)
-                ->setPriority(rand(1,5))
+                ->setPriority(rand(1, 5))
                 ->setCompletedAt(new \DateTimeImmutable())
                 ->setUuid(Uuid::uuid4())
                 ->setUser($user)

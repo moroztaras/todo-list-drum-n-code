@@ -23,7 +23,7 @@ class AuthManager
     ) {
     }
 
-    public function createNewUser(string $content):User
+    public function createNewUser(string $content): User
     {
         /** @var User $user */
         $user = $this->apiObjectValidator->deserializeAndValidate($content, User::class, [

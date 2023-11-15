@@ -2,8 +2,6 @@
 
 namespace App\Model;
 
-use DateTimeImmutable;
-
 class TaskItemsResponseModel
 {
     private string $uuid;
@@ -18,9 +16,9 @@ class TaskItemsResponseModel
 
     private bool $subTask;
 
-    private DateTimeImmutable $completedAt;
+    private \DateTimeImmutable $completedAt;
 
-    private DateTimeImmutable $createdAt;
+    private \DateTimeImmutable $createdAt;
 
     public function getUuid(): string
     {
@@ -69,6 +67,7 @@ class TaskItemsResponseModel
 
         return $this;
     }
+
     public function getTitle(): string
     {
         return $this->title;
@@ -93,24 +92,24 @@ class TaskItemsResponseModel
         return $this;
     }
 
-    public function getCompletedAt(): DateTimeImmutable
+    public function getCompletedAt(): \DateTimeImmutable
     {
         return $this->completedAt;
     }
 
-    public function setCompletedAt(DateTimeImmutable $completedAt): self
+    public function setCompletedAt(\DateTimeImmutable $completedAt): self
     {
         $this->completedAt = $completedAt;
 
         return $this;
     }
 
-    public function getCreatedAt(): DateTimeImmutable
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(DateTimeImmutable $createdAt): self
+    public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
 

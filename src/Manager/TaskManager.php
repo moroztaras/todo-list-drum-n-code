@@ -21,12 +21,12 @@ class TaskManager
     ) {
     }
 
-    public function getTasksOfUser(User $user, string $orderBy, string|null $field, string|int|null $value):array
+    public function getTasksOfUser(User $user, string $orderBy, string|null $field, string|int|null $value): array
     {
         return $this->taskRepository->findTasksOfUserAndOrderByField($user, $orderBy, $field, $value);
     }
 
-    public function createNewTask(?User $user, string $content):Task
+    public function createNewTask(?User $user, string $content): Task
     {
         /** @var Task $task */
         $task = $this->apiObjectValidator->deserializeAndValidate($content, Task::class, [
@@ -34,7 +34,7 @@ class TaskManager
             'create' => true,
         ]);
 
-        if ($this->doctrine->getRepository(Task::class)->findOneBy(['title'=> $task->getTitle()])) {
+        if ($this->doctrine->getRepository(Task::class)->findOneBy(['title' => $task->getTitle()])) {
             throw new ExpectedBadRequestJsonHttpException('Task already exists.');
         }
 
