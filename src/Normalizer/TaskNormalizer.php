@@ -19,9 +19,9 @@ class TaskNormalizer implements NormalizerInterface
             'description' => $object->getDescription(),
             'priority' => $object->getPriority(),
             'status' => $object->getStatus(),
-            'sub_task' => $object->isSubTask(),
+            'subTask' => $object->isSubTask(),
             'completedAt' => $object->getCompletedAt()->format('c'),
-            'created_at' => $object->getCreatedAt()->format('c'),
+            'createdAt' => $object->getCreatedAt()->format('c'),
         ];
     }
 
